@@ -441,7 +441,14 @@ public class Vezerlok extends javax.swing.JFrame {
     }//GEN-LAST:event_jComboBox1ActionPerformed
 
     private void jTabbedPane1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabbedPane1MouseClicked
-     
+      if(jTabbedPane1.getSelectedIndex()==1 && buttonGroup1.getSelection()==null){
+            JOptionPane.showMessageDialog(this.rootPane, "Nincs nem kiválasztva!");
+            jTabbedPane1.setSelectedIndex(0);
+        }else if(jCheckBox1.isSelected()){
+            jTextArea1.setText("kér hírlevelet");
+        }else if(jCheckBox1.isSelected()==false){
+            jTextArea1.setText("");
+        }
     }//GEN-LAST:event_jTabbedPane1MouseClicked
 
     /**
