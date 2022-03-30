@@ -7,6 +7,8 @@ package nezet;
 
 import java.awt.event.KeyEvent;
 import javax.swing.DefaultListModel;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.ListModel;
 
@@ -20,7 +22,7 @@ public class Vezerlok extends javax.swing.JFrame {
      * Creates new form Vezerlok
      */
     boolean fejlecetEnged = false;
-     boolean HozzaFuzEnged = false;
+    boolean HozzaFuzEnged = false;
 
     public Vezerlok() {
         initComponents();
@@ -81,8 +83,13 @@ public class Vezerlok extends javax.swing.JFrame {
         jRadioButtonMenuItem1 = new javax.swing.JRadioButtonMenuItem();
         jRadioButtonMenuItem2 = new javax.swing.JRadioButtonMenuItem();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("Vezérlők használata");
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         jTabbedPane1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jTabbedPane1.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -234,7 +241,7 @@ public class Vezerlok extends javax.swing.JFrame {
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jLabel2)
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 365, Short.MAX_VALUE))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 363, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
@@ -420,7 +427,7 @@ public class Vezerlok extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCombobaActionPerformed
 
     private void btnListbeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListbeActionPerformed
-        if (fejlecetEnged) {
+        if (!fejlecetEnged) {
             DefaultListModel dlm = new DefaultListModel();
 
             ListModel<String> listModel = jList1.getModel();
@@ -430,7 +437,7 @@ public class Vezerlok extends javax.swing.JFrame {
                     dlm.addElement(listModel.getElementAt(i));
                 }
             }
-            //kiválasztott Combo elem:
+
             String szak = jComboBox1.getSelectedItem().toString();
             if (rdbEleje.isSelected()) {
                 dlm.add(0, szak);
@@ -476,23 +483,31 @@ public class Vezerlok extends javax.swing.JFrame {
 
     private void txtujSzakKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtujSzakKeyReleased
         if (!txtujSzak.getText().isEmpty()) {
-            if(evt.getKeyCode()==KeyEvent.VK_ENTER){
+            if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
                 jComboBox1.addItem(txtujSzak.getText());
-            }  
-        }else{
+            }
+        } else {
             JOptionPane.showMessageDialog(this.rootPane, "Nincs be írva új szak!");
         }
     }//GEN-LAST:event_txtujSzakKeyReleased
 
     private void chbHozzaFuzActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chbHozzaFuzActionPerformed
-       if(chbHozzaFuz.isSelected()){
-          rdbEleje.setEnabled(HozzaFuzEnged);
-          rdbVege.setEnabled(HozzaFuzEnged);
-       }else{
+        if (chbHozzaFuz.isSelected()) {
+            rdbEleje.setEnabled(HozzaFuzEnged);
+            rdbVege.setEnabled(HozzaFuzEnged);
+        } else {
             rdbEleje.setEnabled(!HozzaFuzEnged);
-          rdbVege.setEnabled(!HozzaFuzEnged);
-       }
+            rdbVege.setEnabled(!HozzaFuzEnged);
+        }
     }//GEN-LAST:event_chbHozzaFuzActionPerformed
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        Icon kep = new ImageIcon(this.getClass().getResource("kepek/icon.png"));
+        int gomb = JOptionPane.showConfirmDialog(rootPane, "Kilep","Biztos kilép?",JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE,kep);
+        if(gomb == JOptionPane.OK_OPTION){
+            System.exit(0);
+        }
+    }//GEN-LAST:event_formWindowClosing
 
     /**
      * @param args the command line arguments
