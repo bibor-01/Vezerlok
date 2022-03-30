@@ -18,7 +18,7 @@ public class Vezerlok extends javax.swing.JFrame {
     /**
      * Creates new form Vezerlok
      */
-   
+    boolean fejlecetEnged=false; 
     public Vezerlok() {
         initComponents();
     }
@@ -402,7 +402,7 @@ public class Vezerlok extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCombobaActionPerformed
 
     private void btnListbeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListbeActionPerformed
-        if (jComboBox1.getSelectedIndex() > 0) {
+        if (fejlecetEnged) {
             DefaultListModel dlm = new DefaultListModel();
             
             ListModel<String> listModel = jList1.getModel();
@@ -427,7 +427,13 @@ public class Vezerlok extends javax.swing.JFrame {
     }//GEN-LAST:event_btnListbeActionPerformed
 
     private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed
-      
+          fejlecetEnged=!fejlecetEnged;
+        if (fejlecetEnged) {
+            jToggleButton1.setText("Fejlécet tilt");
+        }else{
+            jToggleButton1.setText("Fejlécet enged");
+        }
+
     }//GEN-LAST:event_jToggleButton1ActionPerformed
 
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
