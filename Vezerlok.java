@@ -5,6 +5,7 @@
  */
 package nezet;
 
+import java.awt.event.KeyEvent;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 import javax.swing.ListModel;
@@ -18,7 +19,8 @@ public class Vezerlok extends javax.swing.JFrame {
     /**
      * Creates new form Vezerlok
      */
-    boolean fejlecetEnged=false; 
+    boolean fejlecetEnged = false;
+
     public Vezerlok() {
         initComponents();
     }
@@ -267,6 +269,16 @@ public class Vezerlok extends javax.swing.JFrame {
         jLabel3.setText("Új szak:");
 
         txtujSzak.setText("jTextField1");
+        txtujSzak.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtujSzakActionPerformed(evt);
+            }
+        });
+        txtujSzak.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtujSzakKeyReleased(evt);
+            }
+        });
 
         btnComboba.setText("Felvesz");
         btnComboba.addActionListener(new java.awt.event.ActionListener() {
@@ -390,10 +402,10 @@ public class Vezerlok extends javax.swing.JFrame {
 
     private void btnJelszotMutatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnJelszotMutatActionPerformed
         char[] betuk = pswJelszo.getPassword();
-        String jsz="";
+        String jsz = "";
         for (char c : betuk) {
             jsz += c;
-        }        
+        }
         txtJelszo.setText(jsz);
     }//GEN-LAST:event_btnJelszotMutatActionPerformed
 
@@ -404,9 +416,9 @@ public class Vezerlok extends javax.swing.JFrame {
     private void btnListbeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListbeActionPerformed
         if (fejlecetEnged) {
             DefaultListModel dlm = new DefaultListModel();
-            
+
             ListModel<String> listModel = jList1.getModel();
-            
+
             if (chbHozzaFuz.isSelected()) {
                 for (int i = 0; i < listModel.getSize(); i++) {
                     dlm.addElement(listModel.getElementAt(i));
@@ -419,7 +431,7 @@ public class Vezerlok extends javax.swing.JFrame {
             } else {
                 dlm.addElement(szak);
             }
-            
+
             jList1.setModel(dlm);
         } else {
             JOptionPane.showMessageDialog(this.rootPane, "Nincs szak kiválasztva!");
@@ -427,29 +439,44 @@ public class Vezerlok extends javax.swing.JFrame {
     }//GEN-LAST:event_btnListbeActionPerformed
 
     private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed
-          fejlecetEnged=!fejlecetEnged;
+        fejlecetEnged = !fejlecetEnged;
         if (fejlecetEnged) {
             jToggleButton1.setText("Fejlécet tilt");
-        }else{
+        } else {
             jToggleButton1.setText("Fejlécet enged");
         }
 
     }//GEN-LAST:event_jToggleButton1ActionPerformed
 
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
-         pswJelszo.setText(jComboBox1.getSelectedItem().toString());
+        pswJelszo.setText(jComboBox1.getSelectedItem().toString());
     }//GEN-LAST:event_jComboBox1ActionPerformed
 
     private void jTabbedPane1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabbedPane1MouseClicked
-      if(jTabbedPane1.getSelectedIndex()==1 && buttonGroup1.getSelection()==null){
+        if (jTabbedPane1.getSelectedIndex() == 1 && buttonGroup1.getSelection() == null) {
             JOptionPane.showMessageDialog(this.rootPane, "Nincs nem kiválasztva!");
             jTabbedPane1.setSelectedIndex(0);
-        }else if(jCheckBox1.isSelected()){
+        } else if (jCheckBox1.isSelected()) {
             jTextArea1.setText("kér hírlevelet");
-        }else if(jCheckBox1.isSelected()==false){
-            jTextArea1.setText("");
+        } else if (jCheckBox1.isSelected() == false) {
+            jTextArea1.setText("nem kérek hírlevelet");
         }
     }//GEN-LAST:event_jTabbedPane1MouseClicked
+
+    private void txtujSzakActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtujSzakActionPerformed
+
+
+    }//GEN-LAST:event_txtujSzakActionPerformed
+
+    private void txtujSzakKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtujSzakKeyReleased
+        if (!txtujSzak.getText().isEmpty()) {
+            if(evt.getKeyCode()==KeyEvent.VK_ENTER){
+                jComboBox1.addItem(txtujSzak.getText());
+            }  
+        }else{
+            JOptionPane.showMessageDialog(this.rootPane, "Nincs be írva új szak!");
+        }
+    }//GEN-LAST:event_txtujSzakKeyReleased
 
     /**
      * @param args the command line arguments
