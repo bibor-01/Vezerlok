@@ -20,6 +20,7 @@ public class Vezerlok extends javax.swing.JFrame {
      * Creates new form Vezerlok
      */
     boolean fejlecetEnged = false;
+     boolean HozzaFuzEnged = false;
 
     public Vezerlok() {
         initComponents();
@@ -251,6 +252,11 @@ public class Vezerlok extends javax.swing.JFrame {
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder("Dinamikus tartalom"));
 
         chbHozzaFuz.setText("hozzáfűz");
+        chbHozzaFuz.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chbHozzaFuzActionPerformed(evt);
+            }
+        });
 
         btnListbe.setText("combo tartalmát Listbe");
         btnListbe.addActionListener(new java.awt.event.ActionListener() {
@@ -477,6 +483,16 @@ public class Vezerlok extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this.rootPane, "Nincs be írva új szak!");
         }
     }//GEN-LAST:event_txtujSzakKeyReleased
+
+    private void chbHozzaFuzActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chbHozzaFuzActionPerformed
+       if(chbHozzaFuz.isSelected()){
+          rdbEleje.setEnabled(HozzaFuzEnged);
+          rdbVege.setEnabled(HozzaFuzEnged);
+       }else{
+            rdbEleje.setEnabled(!HozzaFuzEnged);
+          rdbVege.setEnabled(!HozzaFuzEnged);
+       }
+    }//GEN-LAST:event_chbHozzaFuzActionPerformed
 
     /**
      * @param args the command line arguments
